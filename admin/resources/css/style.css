@@ -1,0 +1,135 @@
+/* Admin css File */
+
+
+
+/* General Style */
+body {
+	/* Because body elements can't see the fixed NavBar */
+	padding-top: 40px;
+	/*height: 1000px; to check scroll */
+}
+/* Navbar Style */
+
+/* making Dropdown color 'WHITE' */
+.navbar-dark .navbar-nav .nav-link {
+	color : #fff;
+	font-size: 1.15rem;
+}
+
+/* Make drop down menu smaller */
+.dropdown-menu {
+	padding : 0;
+}
+
+/* position of navbar dropmenu was not good */
+.brand-drop-down{
+	left:170px;
+}
+/*Remove this triangle for dropdown behind Navbar (ONLY) */
+.navbar-brand.dropdown-toggle::after{
+	content: none;
+}
+
+/* make color lighter on hover on Nvbar Also*/
+.navbar-dark .navbar-brand:hover{
+	color:rgba(255,255,255,.75);
+}
+/* changing NavBar bg color we added !important to override it (in BS we have !important) */
+.bg-dark{
+	background-color:#141515 !important;
+}
+
+/* making navbar thinner  */
+.navbar {
+	padding: 0;
+}
+
+/* ADMIN SIDE BAR STYLE */
+
+/* same color as navbar fix it at left and let height takes all the page max width to never exceed*/
+.sidebar {
+	padding :10px;
+	background: #141515;
+	position: fixed;
+	height: 100%;
+	width: 210px;
+	max-width: 210px;
+}
+
+/* remove underlines and making color white */
+
+.sidebar ul li a {
+	text-decoration: none;
+	display: block;
+	border: 1px solid #9b9b9b;
+	border-radius: 3px;
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 7.7px;
+	transition: .24s ease-in-out;
+
+}
+/* when we move mouse on any link bg color changes */
+.sidebar ul li a:hover{
+	background: #383537;
+        color:#fff;
+	}
+
+/* move the list down a little bit*/
+.sidebar ul {
+	margin-top: 30px;
+}
+/* to keep side bar at left */
+.col-sm-2 {
+	padding-left: 0px;	
+}
+
+/* ADD POST STYLE */
+/* Error style */
+
+/* message inside danger block */
+.err{
+	color:#721c24;
+	font-size: 20px;
+	margin:7px;
+	padding:2px;
+}
+
+/*border better corners !*/
+.alert-danger{
+	/*margin: 10px;*/
+	border-radius: 5px;
+}
+
+/*show only after checking not every time*/
+.alert-danger ul li {
+	display: none;
+}
+
+.posts div table tbody td form {
+		display: inline;
+	}
+
+
+/*.table_class {
+  max-width: 430px;
+  word-wrap: break-word; // allow to break long words
+} */
+
+
+.posts div table tbody td.action-links {
+	/* to hold delete and edit in 1 line*/
+	min-width: 130px;
+}
+.posts div table tbody td form input.btn-danger{
+	/* to seperate edit and delete */
+	margin-left: 2px;
+}
+.posts div table tbody td.title {
+	/* title width was small */
+	min-width: 200px;
+}
+.posts div .btn-info{
+	/*move ADD POST button a little bit */
+	margin-right: 14px;
+}
