@@ -57,4 +57,29 @@ catch(exception $e) {
 
 }
 
+function delete_row($table,$id) {
+    include 'connect.php';
+    $sql = "DELETE FROM $table WHERE id = ? " ;
+    try {
+        	$result = $con->prepare($sql);
+        	$result->bindValue(1,$id,PDO::PARAM_INT);
+        	return $result->execute();
+    }catch(exception $e){
+
+    	echo "Error : " . $e->getMessage();
+    }
+
+
+
+
+}
+
+
+function redirect($location){
+	// go to posts page again 
+		     	header("Location: " . $location);
+		     	// never execute anything below u 
+		     	exit;  
+}
+
 ?>

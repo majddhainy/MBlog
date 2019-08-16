@@ -39,6 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         ( $img_type == 'image/jpeg' || $img_type == 'image/png' ) && getimagesize($img_tmp) ) 
         	{
          	 $new_image_name = md5( "sec" . rand(0,1000) . uniqid() . $img_name ) . '.' . $img_ext; 
+         	}
+
+         }
+         else {
+         	$new_image_name = "";
+         }
          	 
          	 // OK IT'S AN IMAGE AND DATA IS FILTERED LET'S INSERT IT !
 
@@ -60,20 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
          		 header("Location:post.php");
      		      exit;
          	}
-
-
-
-
-
-
-        }
-        else {
-
-        }
-    }
-	
-
-
+         	
 	}
 
   

@@ -71,7 +71,8 @@ include 'inc/functions.php';
                <td class="table_class"><?php echo  $post['author'];?></td>
               <td class="action-links">
 					      	<a class="btn btn-primary btn-sm" href="post.php">Edit</a>
-					      	<form action="deletepost.php" method="post">
+					      	<form onsubmit="return confirm('Are you sure you want to delete this post ? ') " action="deletepost.php" method="post">
+					      	<input type="hidden" name="id" value=<?php echo $post['ID'];?>>
 					      	<input type="submit" name="deletepost" class="btn btn-danger btn-sm" value="Delete" /> 
 					      </form>
 			   </td>
