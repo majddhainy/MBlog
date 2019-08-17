@@ -39,15 +39,29 @@ function insert_post($datetime,$title,$author,$body,$category,$excerpt,$tags,$im
 
 }
 
-function get_posts()
+function get_posts($id = "")
 {
+	// use optional parameter to never duplicate the function 
 	include 'connect.php';
-	$sql = "SELECT * FROM posts"; // always result is as form of array where index is col u need 
+	if (empty($id)) {
+	   $sql = "SELECT * FROM posts";
+	}
+	else
+	$sql = "SELECT * FROM posts WHERE id=?"; // always result is as form of array where index is col u need 
 	try {
-
-	$results = $con->query($sql);
-	return $results;
-}
+		    if (empty($id)) {
+		    	$results = $con->query($sql);
+			return $results;
+		     }
+		    else {
+				$result = $con->prepare($sql);
+				$result->bindValue(1,$id,PDO::PARAM_INT);
+				$result->execute();
+				// here we dont want to return true/false as delete .. 
+				// we need to return data  - PDO::FETCH_ASSOC to return indexed array of columns 
+				return $result->fetch(PDO::FETCH_ASSOC);
+			}
+    }
 
 catch(exception $e) {
 

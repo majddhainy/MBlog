@@ -59,7 +59,8 @@ include 'inc/functions.php';
 					      	?>
 					      	
 					      </td>
-
+					      <td><?php echo $post['category']; ?></td>
+                           
 					      <td>
 			               <td class="table_class">
 			                 	<?php if(! empty($post['image_name'])) { ?>
@@ -70,7 +71,7 @@ include 'inc/functions.php';
 								  ?></td>
                <td class="table_class"><?php echo  $post['author'];?></td>
               <td class="action-links">
-					      	<a class="btn btn-primary btn-sm" href="post.php">Edit</a>
+					      	<a class="btn btn-primary btn-sm" href="post.php?id=<?php echo $post['ID'] ?>">Edit</a>
 					      	<form onsubmit="return confirm('Are you sure you want to delete this post ? ') " action="deletepost.php" method="post">
 					      	<input type="hidden" name="id" value=<?php echo $post['ID'];?>>
 					      	<input type="submit" name="deletepost" class="btn btn-danger btn-sm" value="Delete" /> 

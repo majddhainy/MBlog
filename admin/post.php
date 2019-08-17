@@ -5,7 +5,14 @@ include 'inc/connect.php';
 include 'inc/functions.php'; 
 ?> 
 
+       
+    
 <?php 
+        $title = "";
+        $body = "";
+        $category = "";
+        $excerpt = "";
+        $tags ="";
 // do we have a POST Request ? 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     // exactly pressed on addpost button in that form (maybe we have 2 forms)
@@ -66,10 +73,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
          		 header("Location:post.php");
      		      exit;
          	}
-         	
+
 	}
 
   
+}
+
+elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
+		
+	if (!empty($_GET['id'])) {
+		
+		$id = filter_input(INPUT_GET,'id');
+		$post = get_posts($id);		
+        $title = $post['title'];
+        $body = $post['body'];
+        $category = $post['category'];
+        $excerpt = $post['title'];
+        $tags = $post['tags'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+
+
 }
 
 
@@ -97,11 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 </div>
 <form action="post.php" method="post" enctype="multipart/form-data">
 	<div class="form-group">	
-       <input class="form-control" type="text" name="title" placeholder="Title" required autocomplete="off">
+       <input value="<?php echo $title;?>"class="form-control" type="text" name="title" placeholder="Title" required autocomplete="off">
 	</div>
 
 	<div class="form-group">	
-<textarea  required   placeholder="Body" name="body" rows="6" autocomplete="off" class="form-control"></textarea>
+<textarea required   placeholder="Body" name="body" rows="6" autocomplete="off" class="form-control"><?php echo $body;?></textarea>
 	</div>
 
 	<div class=form-group>	
@@ -110,7 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
                  // Grabbing all categories from DB 
                foreach (get_categories() as $result) {
                		//echo " <option> ok </option>";
+                    if ($result['name'] == $category) {
+                    	echo "<option selected=\"selected\">";
+                    }
+                    else {
                	    echo "<option>";
+               	    }
                	    echo $result['name'];
                	    echo "</option>";
                }
@@ -122,11 +165,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
 	</div>
 	<div class="form-group">	
-       <input class="form-control" type="text" name="excerpt" placeholder="Excerpt (Optional)"  autocomplete="off">
+       <input  value="<?php echo $excerpt;?>"class="form-control" type="text" name="excerpt" placeholder="Excerpt (Optional)"  autocomplete="off">
 	</div>
 	<div class="form-group">	
-       <input class="form-control" type="text" name="tags" placeholder="Tags"  autocomplete="off">
+       <input value="<?php echo $tags;?> " class="form-control" type="text" name="tags" placeholder="Tags"  autocomplete="off">
 	</div>
+	<?php 
+         if (!empty($post['image_name'])) {
+   
+	?>
+	<label>Post Image :</label>
+	<img width="100" src="upload/posts/<?php echo $post['image_name']; ?>">
+<?php }  else { ?>
+	<label>No Image</label>
+<?php } ?>
 	<div class="form-group">	
        <input class="form-control" type="file" name="image">
 	</div>
