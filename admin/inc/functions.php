@@ -44,7 +44,8 @@ function get_posts($id = "")
 	// use optional parameter to never duplicate the function 
 	include 'connect.php';
 	if (empty($id)) {
-	   $sql = "SELECT * FROM posts";
+		// to sort them according to date ... 
+	   $sql = "SELECT * FROM posts ORDER BY datetime DESC";
 	}
 	else
 	$sql = "SELECT * FROM posts WHERE id=?"; // always result is as form of array where index is col u need 
@@ -94,6 +95,56 @@ function redirect($location){
 		     	header("Location: " . $location);
 		     	// never execute anything below u 
 		     	exit;  
+}
+
+
+function update_post($title,$body,$category,$excerpt,$tags,$image_name = "",$id) {
+          //image is optional param bcz maybe the user will not edit the image 
+	include 'connect.php';
+	$fields = Array($title,$body,$category,$excerpt,$tags,$image_name,$id);
+	print_r($fields);
+	$sql = "";
+	if (!empty($image_name)) {
+		$sql = "UPDATE posts SET  title = ?, body = ?,category = ?,excerpt = ?,tags = ?,image_name = ? WHERE ID = ?" ;
+	}
+	else {
+		$sql = "UPDATE posts SET  title = ?, body = ?,category = ?,excerpt = ?,tags = ? WHERE ID = ?" ;
+	}
+
+try {
+	$query = $con->prepare($sql);
+	for ($i=1; $i < 7 ; $i++) { 
+	      if ($i <= 5) {
+	      	// we need to insert 1st 6 values in call cases
+	      	$query->bindValue($i,$fields[$i-1],PDO::PARAM_STR);
+	      }
+	      else {
+		      if (!empty($image_name)) {
+		      	//insert img name at #7
+		      	$query->bindValue(6,$fields[5],PDO::PARAM_STR);
+		      	// & ID at #8
+		      	$query->bindValue(7,$fields[6],PDO::PARAM_INT);
+		      }
+		      else {
+		      	// insert id at #7 only bcz there id no img
+		      	$query->bindValue(6,$fields[6],PDO::PARAM_INT);
+		      }
+
+	      }
+
+	}
+
+ 			return $query->execute();
+}
+
+catch(exception $e){
+	return "Error : " . $e->getMessage();
+	return false ;
+}
+
+
+
+
 }
 
 ?>

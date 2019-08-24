@@ -15,6 +15,30 @@ include 'inc/functions.php';
 <!-- or col-sm only means rest of columns is for this section ! -->
 <div class="col-sm-10">	
 	<div class="posts">
+		<?php 
+		// if you wanna use session in another page you have to open it again ..
+            if (!session_id()) {
+                	session_start();
+                }
+            if (!empty($_SESSION['success'])) {
+            	echo "<div class=\"alert alert-success\">
+                  <strong>Success!</strong> " . $_SESSION['success'] . "
+                   </div>";
+                  $_SESSION['success'] = ""; 
+            }
+
+            if (!empty($_SESSION['error'])) {
+            	echo "<div class=\"alert alert-danger\" role=\"alert\">
+                  <strong>Error!</strong> <p class=\"err\"> "  . $_SESSION['success'] . "
+                   </p></div>";
+                   $_SESSION['error'] = ""; 
+            }
+
+
+
+
+
+		?>
 <h4> Posts </h4>
 <!-- make table comf. with devices  -->
 <div class="table-responsive">
@@ -61,7 +85,7 @@ include 'inc/functions.php';
 					      </td>
 					      <td><?php echo $post['category']; ?></td>
                            
-					      <td>
+					    
 			               <td class="table_class">
 			                 	<?php if(! empty($post['image_name'])) { ?>
 								 <img class="" alt="Post Banner" width="150" height="150"  style="margin: 2px;" src="upload/posts/<?php echo $post['image_name']; ?>">	
